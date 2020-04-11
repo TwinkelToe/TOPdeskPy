@@ -14,7 +14,7 @@ incident_parm['urgency'] = topdesk.incident.get_id_urgency('kan verder')
 incident_parm['entryType'] =  topdesk.incident.get_id_entryType('mail')
 incident_parm['request'] = 'My computer is on fire.'
 incident_parm['object'] = {"name": "039662"}
-topdesk.incident.create('r.lutz@rocmn.nl', **incident_parm)
+topdesk.incident.create('m.laadvermogen@company.nl', **incident_parm)
 
 # # Update an incident
 update2_parm = {}
