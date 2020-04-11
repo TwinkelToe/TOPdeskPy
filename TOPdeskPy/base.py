@@ -20,6 +20,7 @@ class connect:
         self.operatorgroup = self._operatorgroup(self._topdesk_url, self._credpair)
         self.operator = self._operator(self._topdesk_url, self._credpair)
         self.budgetholder = self._budgetholder(self._topdesk_url, self._credpair)
+        self.operational_activities = self._operational_activities(self._topdesk_url, self._credpair)
 
     class _operator:
 
@@ -143,6 +144,18 @@ class connect:
         def update(self, branche_id, **kwargs):
             return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/branches/id/{}".format(branche_id), self.utils.add_id_jsonbody(**kwargs)))
             
+    class _operational_activities:
+        def __init__(self, topdesk_url, credpair):
+            self._topdesk_url = topdesk_url
+            self._credpair = credpair
+            self.utils = _utils.utils(self._topdesk_url, self._credpair)
+
+        def get_list(self, **kwargs):
+            return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/operationalActivities", extended_uri=kwargs))
+
+        def get(self, id):
+            return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/operationalActivities/{}".format(id)))
+
     class _department:
 
         def __init__(self, topdesk_url, credpair):
