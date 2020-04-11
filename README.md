@@ -3,7 +3,7 @@
 
 Currently in a very initial stage. Mostly incidents and persons are supported. 
 
-Initeraction with incidents:
+Interaction with incidents:
 ```python
 import TOPdeskPy
 
