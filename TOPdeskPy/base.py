@@ -19,6 +19,7 @@ class connect:
         self.supplier = self._supplier(self._topdesk_url, self._credpair)
         self.operatorgroup = self._operatorgroup(self._topdesk_url, self._credpair)
         self.operator = self._operator(self._topdesk_url, self._credpair)
+        self.budgetholder = self._budgetholder(self._topdesk_url, self._credpair)
 
     class _operator:
 
@@ -34,8 +35,8 @@ class connect:
             return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/operators/id/{}".format(id)))
 
 
-        def get_operatorgroups_operator(self, id):
-            return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/operators/id/{}/operatorgroups".format(id)))
+        def get_operatorgroups(self, operator_id):
+            return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/operators/id/{}/operatorgroups".format(operator_id)))
 
         def get_id_operator(self, query):
             result = self.get_list()
@@ -67,8 +68,8 @@ class connect:
             self._credpair = credpair
             self.utils = _utils.utils(self._topdesk_url, self._credpair)
         
-        def get_operators_operatorgroup(self, id):
-            return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/operatorgroups/id/{}/operators".format(id)))
+        def get_operators(self, operatorgroup_id):
+            return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/operatorgroups/id/{}/operators".format(operatorgroup_id)))
 
         def get_list(self, archived=False, page_size=100, query=None):
             return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/operatorgroups", archived, page_size, query))
@@ -82,7 +83,8 @@ class connect:
 
             return self.utils.print_lookup_canidates(canidates)
 
-        def create(self, **kwargs):
+        def create(self, groupName, **kwargs):
+            kwargs['groupName'] = groupName
             return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/operatorgroups", (self.utils.add_id_jsonbody(**kwargs))))
 
         def update(self, operatorgroup_id, **kwargs):
@@ -133,6 +135,13 @@ class connect:
 
         def get(self, id):
             return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/branches/id/{}".format(id)))
+
+        def create(self, name, **kwargs):
+            kwargs['name'] = name
+            return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/branches", self.utils.add_id_jsonbody(**kwargs)))
+
+        def update(self, branche_id, **kwargs):
+            return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/branches/id/{}".format(branche_id), self.utils.add_id_jsonbody(**kwargs)))
             
     class _department:
 
@@ -153,17 +162,32 @@ class connect:
 
             return self.utils.print_lookup_canidates(canidates)
 
+    class _budgetholder:
+
+        def __init__(self, topdesk_url, credpair):
+            self._topdesk_url = topdesk_url
+            self._credpair = credpair
+            self.utils = _utils.utils(self._topdesk_url, self._credpair)
+
+        def get(self):
+            return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/budgetholders"))
+
+        def create(self, name, **kwargs):
+            kwargs['name'] = name
+            return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/branches", self.utils.add_id_jsonbody(**kwargs)))
+
     def get_countries(self):
         return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/countries"))    
-
-    def get_budgetholders(self):
-        return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/budgetholders"))
 
     def get_archiving_reasons(self):
         return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/archiving-reasons"))
 
     def get_timespent_reasons(self):
         return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/timespent-reasons"))
+
+    def get_permissiongroups(self):
+        return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/permissiongroups"))
+
 
 if __name__ == "__main__":
     pass
