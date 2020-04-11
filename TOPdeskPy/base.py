@@ -201,6 +201,9 @@ class connect:
     def get_permissiongroups(self):
         return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/permissiongroups"))
 
+    def notification(self, title, **kwargs):
+        kwargs['title'] = title
+        return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/tasknotifications/custom", self.utils.add_id_jsonbody(**kwargs)))
 
 if __name__ == "__main__":
     pass
