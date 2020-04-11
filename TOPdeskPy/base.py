@@ -46,6 +46,20 @@ class connect:
 
             return self.utils.print_lookup_canidates(canidates)
 
+        def create(self, **kwargs):
+            return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/operators", (self.utils.add_id_jsonbody(**kwargs))))
+
+        def update(self, operator_id, **kwargs):
+            return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/operators/id/{}".format(operator_id), self.utils.add_id_jsonbody(**kwargs)))
+
+        def archive(self, operator_id, reason_id=None):
+            if reason_id:
+                param = {'id': reason_id}
+            return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/operators/id/{}/archive".format(operator_id), param))
+
+        def unarchive(self, operator_id):
+            return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/operators/id/{}/unarchive".format(operator_id), None))
+
     class _operatorgroup:
         
         def __init__(self, topdesk_url, credpair):
@@ -67,6 +81,20 @@ class connect:
                     canidates.append(operatorgroup['id'])
 
             return self.utils.print_lookup_canidates(canidates)
+
+        def create(self, **kwargs):
+            return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/operatorgroups", (self.utils.add_id_jsonbody(**kwargs))))
+
+        def update(self, operatorgroup_id, **kwargs):
+            return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/operatorgroups/id/{}".format(operatorgroup_id), self.utils.add_id_jsonbody(**kwargs)))
+
+        def archive(self, operatorgroup_id, reason_id=None):
+            if reason_id:
+                param = {'id': reason_id}
+            return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/operatorgroups/id/{}/archive".format(operatorgroup_id), param))
+
+        def unarchive(self, operatorgroup_id):
+            return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/operatorgroups/id/{}/unarchive".format(operatorgroup_id), None))
 
     class _supplier:
 
@@ -135,8 +163,7 @@ class connect:
         return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/archiving-reasons"))
 
     def get_timespent_reasons(self):
-        return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/timespent-reasons"))               
-
+        return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/timespent-reasons"))
 
 if __name__ == "__main__":
     pass

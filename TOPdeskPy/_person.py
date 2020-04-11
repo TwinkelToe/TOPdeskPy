@@ -18,5 +18,13 @@ class person:
     def update(self, person, **kwargs):
         return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/persons/id/{}".format(person), self.utils.add_id_jsonbody(**kwargs)))
 
+    def archive(self, person_id, reason_id=None):
+        if reason_id:
+            param = {'id': reason_id}
+        return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/persons/id/{}/archive".format(person_id), param))
+
+    def unarchive(self, person_id):
+        return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/persons/id/{}/unarchive".format(person_id), None))
+
 if __name__ == "__main__":
     pass
