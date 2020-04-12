@@ -1,8 +1,7 @@
 # TOPdeskPy
  Python package to interact with the TOPdesk API
 
-Please see the offical documentation for the data models: https://developers.topdesk.com/ \n
-This python packges is currently in a initial stage. But check out the example directory for various examples. A few examples are listed below.
+Please see the official documentation https://developers.topdesk.com/ for the data models. This python packges is currently in a initial stage. But check out the example directory for various examples. A few examples are listed below.
 
 Creating incidents on the TOPdesk API::
 ```python
