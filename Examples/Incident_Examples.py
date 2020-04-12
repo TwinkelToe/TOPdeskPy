@@ -30,5 +30,22 @@ incident_list = {}
 incident_list['status'] = 'secondLine'
 incident_list['completed'] = False
 incident_list['operator_group'] =  topdesk.operatorgroup.get_id_operatorgroup('Eduarte')
-result = topdesk.incident.get_list(**incident_list)
-print('')
+topdesk.incident.get_list(**incident_list)
+
+# actions
+topdesk.incident.action.get_list('200211-001')
+topdesk.incident.action.get('200211-001', '3067f000-1916-4a29-aa79-2dc99c677108')
+topdesk.incident.action.delete('200211-001', '3067f000-1916-4a29-aa79-2dc99c677108')
+
+# Requests
+topdesk.incident.request.get_list('200211-001')
+topdesk.incident.request.get('200211-001', '3067f000-1916-4a29-aa79-2dc99c677108')
+topdesk.incident.request.delete('200211-001', '3067f000-1916-4a29-aa79-2dc99c677108')
+
+# Escalate and deescalte
+topdesk.incident.escalation_reasons()
+topdesk.incident.deescalation_reasons()
+topdesk.incident.escalate('200211-001')
+topdesk.incident.escalate('200211-001', '6467f000-1916-4a29-aa74-2dc99c677181')
+topdesk.incident.deescalate('200211-001')
+topdesk.incident.deescalate('200211-001', '6467f000-1916-4a29-aa74-2dc99c677181')
