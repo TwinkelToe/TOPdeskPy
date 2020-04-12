@@ -114,6 +114,11 @@ class utils:
             'Content-type': 'application/json'}
         return requests.put(self._topdesk_url + uri, headers=headers, json=json_body)
 
+    def delete_from_topdesk(self, uri, json_body):
+        headers = {'Authorization':"Basic {}".format(self._credpair), "Accept":'application/json', \
+            'Content-type': 'application/json'}
+        return requests.delete(self._topdesk_url + uri, headers=headers, json=json_body)
+
     def add_id_jsonbody(self, **kwargs):
         request_body = {}
         

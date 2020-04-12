@@ -61,6 +61,12 @@ class incident:
             else:
                 return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/incidents/number/{}/actions/{}".format(incident, actions_id), page_size=10, extended_uri=ext_uri))
 
+        def delete(self, incident, actions_id):
+            if self.utils.is_valid_uuid(incident):
+                return self.utils.handle_topdesk_response(self.utils.delete_from_topdesk("/tas/api/incidents/id/{}/actions/{}".format(incident, actions_id), None))
+            else:
+                return self.utils.handle_topdesk_response(self.utils.delete_from_topdesk("/tas/api/incidents/number/{}/actions/{}".format(incident, actions_id), None))
+
     class _request:
 
         def __init__(self, topdesk_url, credpair):
@@ -82,6 +88,12 @@ class incident:
             else:
                 return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/incidents/number/{}/actions/{}".format(incident, request_id), page_size=10, extended_uri=ext_uri))
 
+        def delete(self, incident, request_id):
+            if self.utils.is_valid_uuid(incident):
+                return self.utils.handle_topdesk_response(self.utils.delete_from_topdesk("/tas/api/incidents/id/{}/actions/{}".format(incident, request_id), None))
+            else:
+                return self.utils.handle_topdesk_response(self.utils.delete_from_topdesk("/tas/api/incidents/number/{}/actions/{}".format(incident, request_id), None))
+
     class _timespent:
 
         def __init__(self, topdesk_url, credpair):
@@ -101,9 +113,9 @@ class incident:
                 param = kwargs 
             param['timespent'] =  timespent            
             if self.utils.is_valid_uuid(incident):    
-                return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/incidents/id/{}/timespent".format(incident), param))
+                return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/incidents/id/{}/timespent".format(incident), param))
             else:
-                return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/incidents/number/{}/timespent".format(incident), param))
+                return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/incidents/number/{}/timespent".format(incident), param))
 
     def durations(self):
         return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/incidents/durations"))
@@ -216,9 +228,6 @@ class incident:
             return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/incidents/number/{}/unarchive".format(incident), None))
 
     def get_list(self, archived=False, page_size=100, **kwargs):
-        # reqeust_uri = "&".join("=".join(_) for _ in kwargs.items())
-        # print(reqeust_uri)
-        # URL encode.
         return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/incidents/", archived, page_size=page_size, extended_uri=kwargs))
 
 if __name__ == "__main__":

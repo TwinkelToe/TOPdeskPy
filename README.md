@@ -30,7 +30,7 @@ update2_parm['action'] = "This guy..."
 topdesk.incident.update('200410-004', **update2_parm)
 
 # # Get a single incident
-topdesk.incident.get_number("200410-004")
+topdesk.incident.get("200410-004")
 
 # Get a list of incidents based on a filter
 incident_list = {}
