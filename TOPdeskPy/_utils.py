@@ -47,7 +47,7 @@ class utils:
             return
         elif response.status_code == 204:
             print ("status_code {}, message: {}".format('204', 'No content'))
-            return
+            return "success"
         elif response.status_code == 405:
             print ("status_code {}, message: {}".format('405', 'Method not allowed'))
             return
@@ -134,13 +134,10 @@ class utils:
         # args = posible caller
         if 'caller' in kwargs:            
             if self.is_valid_email_addr(kwargs['caller']):
-                print('valid mail')
                 caller_type = "email"
             elif self.is_valid_uuid(kwargs['caller']):
-                print('is a uuid')
                 caller_type = "id"
             else:
-                print('unreg user')
                 caller_type = "dynamicName"
             request_body['callerLookup'] = { caller_type: kwargs['caller']}
 
