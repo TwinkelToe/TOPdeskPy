@@ -43,13 +43,13 @@ class connect:
             return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/operators/id/{}/permissiongroups".format(operator_id)))
 
         def link_permissiongroups(self, operator_id, id_list):
-            return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/operators/id/{}/permissiongroups".format(operator_id), self.utils.add_id_list(id_list)))
+            return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/operators/id/{}/permissiongroups".format(operator_id), self.utils.add_id_list(id_list)))
 
         def unlink_permissiongroups(self, operator_id, id_list):
             return self.utils.handle_topdesk_response(self.utils.delete_from_topdesk("/tas/api/operators/id/{}/permissiongroups".format(operator_id), self.utils.add_id_list(id_list)))
 
         def link_operetorgroups(self, operator_id, id_list):
-            return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/operators/id/{}/operatorgroups".format(operator_id), self.utils.add_id_list(id_list)))
+            return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/operators/id/{}/operatorgroups".format(operator_id), self.utils.add_id_list(id_list)))
 
         def unlink_operetorgroups(self, operator_id, id_list):
             return self.utils.handle_topdesk_response(self.utils.delete_from_topdesk("/tas/api/operators/id/{}/operatorgroups".format(operator_id), self.utils.add_id_list(id_list)))
@@ -104,13 +104,13 @@ class connect:
                 return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/operators/id/{}/filters/operator".format(operator_id)))
 
             def link_branch(self, operator_id, id_list):                
-                return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/operators/id/{}/filters/branch".format(operator_id), self.utils.add_id_list(id_list)))
+                return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/operators/id/{}/filters/branch".format(operator_id), self.utils.add_id_list(id_list)))
 
             def link_category(self, operator_id, id_list):
-                return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/operators/id/{}/filters/category".format(operator_id), self.utils.add_id_list(id_list)))
+                return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/operators/id/{}/filters/category".format(operator_id), self.utils.add_id_list(id_list)))
 
             def link_operetor(self, operator_id, id_list):
-                return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/operators/id/{}/filters/operator".format(operator_id), self.utils.add_id_list(id_list)))
+                return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/operators/id/{}/filters/operator".format(operator_id), self.utils.add_id_list(id_list)))
 
             def unlink_branch(self, operator_id, id_list):
                 return self.utils.handle_topdesk_response(self.utils.delete_from_topdesk("/tas/api/operators/id/{}/filters/branch".format(operator_id), self.utils.add_id_list(id_list)))
