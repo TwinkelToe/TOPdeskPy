@@ -110,6 +110,20 @@ class incident:
         else:            
             return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/incidents/number/{}".format(incident), self.utils.add_id_jsonbody(**kwargs)))
 
+    def archive(self, incident, reason_id=None):
+        if reason_id:
+            param = {'id': reason_id}
+        if self.utils.is_valid_uuid(incident):    
+            return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/incidents/id/{}/archive".format(incident), param))
+        else:
+            return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/incidents/number/{}/archive".format(incident), param))
+
+    def unarchive(self, incident):
+        if self.utils.is_valid_uuid(incident):
+            return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/incidents/id/{}/unarchive".format(incident), None))
+        else:
+            return self.utils.handle_topdesk_response(self.utils.put_to_topdesk("/tas/api/incidents/number/{}/unarchive".format(incident), param))
+
     def get_list(self, archived=False, page_size=100, **kwargs):
         # reqeust_uri = "&".join("=".join(_) for _ in kwargs.items())
         # print(reqeust_uri)

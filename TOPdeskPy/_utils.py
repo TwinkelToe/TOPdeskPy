@@ -33,7 +33,10 @@ class utils:
         if response.status_code == 200 or response.status_code == 201:
             # response = response.json()
             if not self._partial_content_container:
-                return response.json()
+                if response.text == "":
+                    return "Success"
+                else:
+                    return response.json()
             else:
                 self._partial_content_container += response.json()
                 placeHolder = self._partial_content_container
