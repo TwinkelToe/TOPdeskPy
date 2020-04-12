@@ -63,7 +63,8 @@ class connect:
 
             return self.utils.print_lookup_canidates(canidates)
 
-        def create(self, **kwargs):
+        def create(self, surName, **kwargs):
+            kwargs['surName'] = surName
             return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/operators", (self.utils.add_id_jsonbody(**kwargs))))
 
         def update(self, operator_id, **kwargs):
@@ -223,14 +224,9 @@ class connect:
         def get_list(self, archived=False, page_size=100):
             return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/departments", archived, page_size))
 
-        def get(self, query):
-            result = self.get_list()
-            canidates = list()
-            for departments in result:
-                if re.match(rf"(.+)?{query}(.+)?", departments['name'], re.IGNORECASE):
-                    canidates.append(departments['id'])
-
-            return self.utils.print_lookup_canidates(canidates)
+        def create(self, name, **kwargs):
+            kwargs['name'] = name
+            return self.utils.handle_topdesk_response(self.utils.post_to_topdesk("/tas/api/departments", self.utils.add_id_jsonbody(**kwargs)))
 
     class _budgetholder:
 
@@ -239,7 +235,7 @@ class connect:
             self._credpair = credpair
             self.utils = _utils.utils(self._topdesk_url, self._credpair)
 
-        def get(self):
+        def get_list(self):
             return self.utils.handle_topdesk_response(self.utils.request_topdesk("/tas/api/budgetholders"))
 
         def create(self, name, **kwargs):
