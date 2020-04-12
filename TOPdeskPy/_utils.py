@@ -48,6 +48,9 @@ class utils:
         elif response.status_code == 204:
             print ("status_code {}, message: {}".format('204', 'No content'))
             return
+        elif response.status_code == 405:
+            print ("status_code {}, message: {}".format('405', 'Method not allowed'))
+            return
         # Partial content returned.
         elif response.status_code == 206:
             # can we make this recursive?
@@ -113,6 +116,17 @@ class utils:
         headers = {'Authorization':"Basic {}".format(self._credpair), "Accept":'application/json', \
             'Content-type': 'application/json'}
         return requests.put(self._topdesk_url + uri, headers=headers, json=json_body)
+
+    def delete_from_topdesk(self, uri, json_body):
+        headers = {'Authorization':"Basic {}".format(self._credpair), "Accept":'application/json', \
+            'Content-type': 'application/json'}
+        return requests.delete(self._topdesk_url + uri, headers=headers, json=json_body)
+
+    def add_id_list(self, id_list):
+        param = []
+        for item in id_list:
+            param.append({'id': item})
+        return param
 
     def add_id_jsonbody(self, **kwargs):
         request_body = {}
