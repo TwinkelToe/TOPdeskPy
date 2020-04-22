@@ -9,13 +9,7 @@ class utils:
 
     def is_valid_uuid(self, uuid):
         return re.match(r"^[0-9a-g]{8}-([0-9a-g]{4}-){3}[0-9a-g]{12}$", uuid)
-
-    def is_valid_incident_id(self, id):
-        return re.match(r"^[0-9a-g]{8}-([0-9a-g]{4}-){3}[0-9a-g]{12}$", id)
-
-    def is_valid_incident_number(self, number):
-        return re.match(r"^\d{6}-\d{3}(\d?){2}$", number)
-    
+ 
     def is_valid_email_addr(self, email_addr):
         return re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email_addr)
 
