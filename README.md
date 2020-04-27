@@ -68,3 +68,4 @@ topdesk.person.update('f0971929-aa4c-4eec-8d12-202215e1aa72', **person_update_pa
 
 # Get a list of persons using FQIL
 topdesk.person.get_list(query="isManager==true;branch.name==Brandenburchdreef")
+```
