@@ -9,13 +9,7 @@ class utils:
 
     def is_valid_uuid(self, uuid):
         return re.match(r"^[0-9a-g]{8}-([0-9a-g]{4}-){3}[0-9a-g]{12}$", uuid)
-
-    def is_valid_incident_id(self, id):
-        return re.match(r"^[0-9a-g]{8}-([0-9a-g]{4}-){3}[0-9a-g]{12}$", id)
-
-    def is_valid_incident_number(self, number):
-        return re.match(r"^\d{6}-\d{3}(\d?){2}$", number)
-    
+ 
     def is_valid_email_addr(self, email_addr):
         return re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email_addr)
 
@@ -64,8 +58,7 @@ class utils:
                 partial_new_url = re.sub(r'start=(\d+)', 'start={}'.format(str(self.new_start)), response.url)
             else:
                 # start= not yet present in URL. insert it.
-                partial_new_url = re.sub(r'(page_size=\d+)', r'\1&start=RaNdOmStRing', response.url)
-                partial_new_url = partial_new_url.replace("RaNdOmStRing", str(page_size))
+                partial_new_url = re.sub(r'(page_size=\d+)', r'\1&start={}'.format(str(page_size)), response.url)                
             # Remove base url
             partial_new_url = partial_new_url.replace(self._topdesk_url, "")
             return self.handle_topdesk_response(self.request_topdesk(partial_new_url))
@@ -91,10 +84,7 @@ class utils:
             if extended_uri:
                 uri += "&" + urllib.parse.urlencode(extended_uri, quote_via=urllib.parse.quote_plus)
             if archived:
-                if 'page_size' in uri:
-                    uri += '&'
-                else:
-                    uri += '?'
+                uri += '&' if 'page_size' in uri else '?'
                 uri += 'query=archived=={}'.format(archived)
             if query:
                 #Some query param need to be URL encoded.

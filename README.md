@@ -1,9 +1,9 @@
 # TOPdeskPy
  Python package to interact with the TOPdesk API
 
-Please see the official documentation https://developers.topdesk.com/ for the data models. This python packges is currently in a initial stage. But check out the example directory for various examples. A few examples are listed below.
+Please see the official documentation https://developers.topdesk.com/ for the data models. Check out the example directory for various examples. A few examples are listed below.
 
-Creating incidents on the TOPdesk API::
+Creating incidents on the TOPdesk API:
 ```python
 import TOPdeskPy
 
@@ -23,7 +23,7 @@ incident_parm['request'] = 'My computer is on fire.'
 incident_parm['object'] = {"name": "039662"}
 topdesk.incident.create('m.laadvermogen@company.nl', **incident_parm)
 ```
-Interacting with existing incidents:
+Interacting with existing incidents (UUID's and incidentnumbers can be mixed):
 ```python
 # # Update an incident
 update2_parm = {}
@@ -68,3 +68,4 @@ topdesk.person.update('f0971929-aa4c-4eec-8d12-202215e1aa72', **person_update_pa
 
 # Get a list of persons using FQIL
 topdesk.person.get_list(query="isManager==true;branch.name==Brandenburchdreef")
+```
