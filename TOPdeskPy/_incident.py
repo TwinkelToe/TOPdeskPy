@@ -202,7 +202,7 @@ class incident:
         return self.utils.print_lookup_canidates(canidates)
 
     def get_id_duration(self, query):
-        result = self.call_durations()
+        result = self.durations()
         canidates = list()
         for callType in result:
             if re.match(rf"(.+)?{query}(.+)?", callType['name'], re.IGNORECASE):
