@@ -201,6 +201,15 @@ class incident:
 
         return self.utils.print_lookup_canidates(canidates)
 
+    def get_id_duration(self, query):
+        result = self.durations()
+        canidates = list()
+        for callType in result:
+            if re.match(rf"(.+)?{query}(.+)?", callType['name'], re.IGNORECASE):
+                canidates.append(callType['id'])
+
+        return self.utils.print_lookup_canidates(canidates)
+    
     def create(self, caller, **kwargs):
         # Caller can be: email, uuid or unregisted user. We'll try it in that order.
         create_body = kwargs
